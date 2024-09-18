@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Model.Entities
 {
-    public class User:BaseEntity<Guid>
-    {
+    public class User//:BaseEntity<Guid>
         
+    {
+        public Guid Id { get; set; }
+       public virtual ICollection<Role> Roles { get; set; }
+
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
