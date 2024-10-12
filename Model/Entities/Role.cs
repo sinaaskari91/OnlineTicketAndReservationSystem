@@ -9,12 +9,12 @@ namespace Model.Entities
 {
     public class Role:BaseEntity<Guid>
     {
-        public int RoleId { get; set; }
+        //public int RoleId { get; set; }
         //[ForeignKey(nameof(User))]
-        //public Guid UserId { get; set; }
-       //          CreatedUserId
+        public Guid UserId { get; set; }
+        //          CreatedUserId
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }
-        //public User User { get; set; }
+        public User User { get; set; }
     }
 }

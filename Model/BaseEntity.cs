@@ -22,6 +22,8 @@ namespace Model
         public Guid? UpdatedUserId { get; set; }
         public User? CreatedUser { get; set; }
         public User? UpdatedUser { get; set; }
+        
+        
 
     }
 }
