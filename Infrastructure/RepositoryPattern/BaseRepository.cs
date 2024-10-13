@@ -22,16 +22,20 @@ namespace Infrastructure.RepositoryPattern
         public async Task<T> CreateDataAsync(T data)
         {
          await _entitySet.AddAsync(data);
+            _entitySet.Entry(data).State = EntityState.Added;
          await   CommitAsync();
             return data;
             
         }
               
-        public async Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
+        public async Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null ,bool IsNoTracking=true)
         {
             if (predicate == null)
             {
-               return await Task.Run(()=> _entitySet.AsQueryable());
+              if(IsNoTracking)
+               return await Task.Run(()=> _entitySet.AsQueryable().AsNoTracking());
+              return await Task.Run(() => _entitySet.AsQueryable());
+
             }
             return await Task.Run(() => _entitySet.Where(predicate));
         }
@@ -65,7 +69,7 @@ namespace Infrastructure.RepositoryPattern
             return false;
         }
         public async Task<int> CommitAsync()=>await _dbContext.SaveChangesAsync();
-    
-    
+
+        
     }
 }

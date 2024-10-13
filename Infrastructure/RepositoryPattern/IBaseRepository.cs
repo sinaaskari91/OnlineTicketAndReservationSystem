@@ -11,7 +11,7 @@ namespace Infrastructure.RepositoryPattern
 {
     public interface IBaseRepository<T,KeyTypeId>where T : BaseEntity<KeyTypeId>where KeyTypeId : struct
     {
-        Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null);
+        Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, bool IsNoTracking = true);
         Task<T> GetByIdAsync(KeyTypeId id);
         Task<T> GetAsync(Expression<Func<T, bool>> predicate);
         Task<T> CreateDataAsync(T data);
