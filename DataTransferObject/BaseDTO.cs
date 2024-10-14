@@ -1,15 +1,15 @@
-﻿using System;
+﻿using DataTransferObject.DTOClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Model.Entities;
 
-namespace Model
+namespace DataTransferObject
 {
-    public class BaseEntity<T> where T : struct
+    public class BaseDTO<KeyTypeId> where KeyTypeId : struct
     {
-        public T Id { get; set; }
+        public KeyTypeId Id { get; set; }
         /// <summary>
         /// The date time of data has created in system
         /// </summary>
@@ -20,9 +20,7 @@ namespace Model
         public DateTime UpdatedDateTime { get; set; }
         public Guid? CreatedUserId { get; set; }
         public Guid? UpdatedUserId { get; set; }
-        public User? CreatedUser { get; set; }
-        public User? UpdatedUser { get; set; }
-        
-        
+        public UserDTO? CreatedUser { get; set; }
+        public UserDTO? UpdatedUser { get; set; }
     }
 }

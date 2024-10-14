@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.Entities
+namespace DataTransferObject.DTOClasses
 {
-    public class User:BaseEntity<Guid>
-        
+    public class UserDTO:BaseDTO<Guid>
     {
-        //public Guid Id { get; set; }
-      
-
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Username { get; set; } = string.Empty;
-        public virtual ICollection<Role> Role { get; set; }
-        public virtual ICollection<Ticket> Ticket { get; set; }
-
-
+        public virtual ICollection<RoleDTO> Role { get; set; }
+        public virtual ICollection<TicketDTO> Ticket { get; set; }
     }
 }
