@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    public class OnlineTicketReservationDbContext : DbContext
+    public class OnlineTicketReservationDbContext :IdentityDbContext<User,Role,Guid>
     {
         public OnlineTicketReservationDbContext() {}
         public OnlineTicketReservationDbContext(DbContextOptions<OnlineTicketReservationDbContext> dbContext) : base(dbContext){}
@@ -34,4 +35,7 @@ namespace Infrastructure
         
     }
 
+    public class IdentityDbContext<T>
+    {
+    }
 }

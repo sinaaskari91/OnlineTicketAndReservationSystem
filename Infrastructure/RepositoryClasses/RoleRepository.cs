@@ -13,10 +13,8 @@ using System.Threading.Tasks;
 namespace Infrastructure.RepositoryClasses
 {
 
-    public class RoleRepository : BaseRepository<Role, Guid>, IRoleRepository
+    public class RoleRepository 
     {
-        public RoleRepository(OnlineTicketReservationDbContext dbContext) : base(dbContext)
-        {
-        }
+        
     }
 }

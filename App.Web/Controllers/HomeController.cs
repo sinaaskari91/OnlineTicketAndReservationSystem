@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineTicketAndReservationSystem.Models;
 using System.Diagnostics;
@@ -12,9 +13,10 @@ namespace OnlineTicketAndReservationSystem.Controllers
         {
             _logger = logger;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
+           
             return View();
         }
 

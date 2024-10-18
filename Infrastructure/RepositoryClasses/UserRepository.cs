@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.RepositoryClasses
 {
-    public class UserRepository : BaseRepository<User, Guid>, IUserRepository
+    public class UserRepository 
     {
-        public UserRepository(OnlineTicketReservationDbContext dbContext) : base(dbContext)
-        {
-        }
+       
     }
 }

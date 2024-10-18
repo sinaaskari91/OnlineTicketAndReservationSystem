@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.RepositoryInterfaces
 {
-    public interface IRoleRepository:IBaseRepository<Role,Guid>
+    public interface IRoleRepository
     {
        
     }

@@ -1,18 +1,30 @@
 using Infrastructure;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Service;
+using Microsoft.AspNetCore.Identity;
+using Model.Entities;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddMvc();
+        builder.Services.AddControllersWithViews();
 
-
+        builder.Services.AddIdentity<User,Role>().AddEntityFrameworkStores<OnlineTicketReservationDbContext>();
+        builder.Services.AddRazorPages();
+        builder.Services.ConfigureApplicationCookie(options =>
+        {
+            options.LoginPath="/Identity/Account/Login";
+        });
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         builder.Services.AddDbContext<DbContext, OnlineTicketReservationDbContext>();
-
+        TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
+        MapsterConfig.RegisterMapping();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -27,12 +39,17 @@ internal class Program
         app.UseStaticFiles();
 
         app.UseRouting();
-
+        app.UseAuthentication();
         app.UseAuthorization();
+        app.UseEndpoints(endpoint =>
+        {
+            endpoint.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoint.MapRazorPages();
+        });
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        //app.MapControllerRoute(
+        //    name: "default",
+        //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
         app.Run();
     }
