@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using DataTransferObject.DTOClasses;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Model.Entities;
+using Service.ServiceInterfaces;
 
 namespace App.Web.Areas.Identity.Pages.Account
 {
@@ -30,7 +32,7 @@ namespace App.Web.Areas.Identity.Pages.Account
        // private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
-
+        private readonly IUserService _userService ;
         public RegisterModel(
             UserManager<User> userManager,
             IUserStore<User> userStore,
@@ -51,7 +53,7 @@ namespace App.Web.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }
+        public UserDTO Input { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -110,26 +112,26 @@ namespace App.Web.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+          //  ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                //var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                //await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
               //  await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var result = await _userService.CreateUser(Input);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                   // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                   // code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = userId, returnUrl = returnUrl },
+                        values: new { area = "Identity", userId = user.Id,code =code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
                   //  await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",

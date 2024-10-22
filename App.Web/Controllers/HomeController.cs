@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineTicketAndReservationSystem.Models;
+using Service.ServiceInterfaces;
 using System.Diagnostics;
 
 namespace OnlineTicketAndReservationSystem.Controllers
@@ -8,16 +9,18 @@ namespace OnlineTicketAndReservationSystem.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserService _userservice;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger , IUserService userservice)
         {
             _logger = logger;
+            _userservice =userservice;
         }
         [Authorize]
-        public IActionResult Index()
+        public async Task<IActionResult> index()  
         {
-           
-            return View();
+            var users = await _userservice.GetAllUsers();
+            return View(users);
         }
 
         public IActionResult Privacy()

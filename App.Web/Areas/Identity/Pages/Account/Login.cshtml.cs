@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Model.Entities;
+using Service.ServiceInterfaces;
 
 namespace App.Web.Areas.Identity.Pages.Account
 {
@@ -22,9 +23,11 @@ namespace App.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
-        public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger)
+        private readonly IUserService _userService;
+        
+        public LoginModel(IUserService userService, SignInManager<User> signInManager, ILogger<LoginModel> logger)
         {
+            _userService = userService;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -112,7 +115,7 @@ namespace App.Web.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+               var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

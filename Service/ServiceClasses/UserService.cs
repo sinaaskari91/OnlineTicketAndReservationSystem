@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Service.ServiceClasses
 {
@@ -19,16 +20,17 @@ namespace Service.ServiceClasses
     {
 
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
         public UserService(UserManager<User> userManager)
         {
             _userManager = userManager;
         }
-        public async Task<UserDTO> CreateUser(UserDTO user)
+        public async Task<IdentityResult> CreateUser(UserDTO user)
         {
-            var data = TranslateToEntity(user);
-            await _userManager.CreateAsync(data);
-            return user;
+            User data = TranslateToEntity(user);
+            return await _userManager.CreateAsync(data);
+           
         }
 
         public async Task<List<UserDTO>> GetAllUsers()
@@ -44,6 +46,17 @@ namespace Service.ServiceClasses
             return TranslateToDTO(data);
         }
 
+        public async Task<IList<AuthenticationScheme>> GetExternalAuthenticationShemesAsync()
+        {
+           return (IList<AuthenticationScheme>)(await _signInManager.GetExternalAuthenticationSchemesAsync());
+        }
+
+        public async Task<SignInResult> LoginToSystem(string username, string password)
+        {
+            SignInResult data = await _signInManager.PasswordSignInAsync(username, password, true, lockoutOnFailure: false);
+            return data;
+        }
+
         public UserDTO TranslateToDTO(User entity)
         {
             return entity.Adapt<UserDTO>();
@@ -53,6 +66,16 @@ namespace Service.ServiceClasses
         public User TranslateToEntity(UserDTO dto)
         {
             return dto.Adapt<User>();
+        }
+
+        Task<UserDTO> IUserService.CreateUser(UserDTO user)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IdentityResult> IUserService.GetAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
  }

@@ -18,10 +18,10 @@ namespace Service
                 .Map(x => x.RoleDescription, y => y.RoleDescription);
 
            
-            TypeAdapterConfig<User, UserDTO>.NewConfig()
-               //.Map(x => x.Name, y => y.FirstName)
-              // .Map(x => x.Family, y => y.LastName)
-               .Map(x => x.Username, y => y.UserName);
+            //TypeAdapterConfig<User, UserDTO>.NewConfig()
+            //   //.Map(x => x.Name, y => y.FirstName)
+            //  // .Map(x => x.Family, y => y.LastName)
+            //   .Map(x => x.Username, y => y.UserName);
 
 
 

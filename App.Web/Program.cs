@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Service;
 using Microsoft.AspNetCore.Identity;
 using Model.Entities;
+using Service.ServiceClasses;
+using Service.ServiceInterfaces;
 
 internal class Program
 {
@@ -11,18 +13,24 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddMvc();
-        builder.Services.AddControllersWithViews();
-
-        builder.Services.AddIdentity<User,Role>().AddEntityFrameworkStores<OnlineTicketReservationDbContext>();
+        builder.Services.AddControllers();
         builder.Services.AddRazorPages();
+
+        
+        builder.Services.AddIdentity<User,Role>().AddEntityFrameworkStores<OnlineTicketReservationDbContext>().AddDefaultTokenProviders();
+        builder.Services.AddDbContext<DbContext, OnlineTicketReservationDbContext>();
         builder.Services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath="/Identity/Account/Login";
         });
 
         // Add services to the container.
-        builder.Services.AddControllersWithViews();
-        builder.Services.AddDbContext<DbContext, OnlineTicketReservationDbContext>();
+        builder.Services.AddScoped<IRoleService, RoleService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+       
+
+        builder.Services.AddAuthentication();
+
         TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
         MapsterConfig.RegisterMapping();
         var app = builder.Build();
@@ -43,7 +51,9 @@ internal class Program
         app.UseAuthorization();
         app.UseEndpoints(endpoint =>
         {
-            endpoint.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+            endpoint.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
             endpoint.MapRazorPages();
         });
 
