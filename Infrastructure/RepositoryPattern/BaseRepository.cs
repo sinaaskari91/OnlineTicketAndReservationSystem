@@ -75,6 +75,6 @@ namespace Infrastructure.RepositoryPattern
         }
         public async Task<int> CommitAsync()=>await _dbContext.SaveChangesAsync();
 
-        
+      
     }
 }

@@ -8,6 +8,12 @@ namespace DataTransferObject.DTOClasses
 {
     public class TicketDTO:BaseDTO<Guid>
     {
+        public string Title { get; set; }
+        public int CategoryId { get; set; }
+        public int Number { get; set; }
+        public int Price { get; set; }
+        public CategoryDTO Category { get; set; }
+
         public DateTime Date { get; set; }
         public DateTime BuyDate { get; set; }
         public UserDTO User { get; set; }

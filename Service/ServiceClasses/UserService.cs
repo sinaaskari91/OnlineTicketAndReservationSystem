@@ -68,14 +68,8 @@ namespace Service.ServiceClasses
             return dto.Adapt<User>();
         }
 
-        Task<UserDTO> IUserService.CreateUser(UserDTO user)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        Task<IdentityResult> IUserService.GetAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
  }

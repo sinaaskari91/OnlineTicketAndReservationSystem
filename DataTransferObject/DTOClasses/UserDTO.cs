@@ -25,17 +25,17 @@ namespace DataTransferObject.DTOClasses
         [DisplayName("رمز عبور ")]
         [DataType(DataType.Password)]
         [StringLength(100,ErrorMessage ="رمز عبور حداقل باید 6 حرف باشد",MinimumLength =6)]
-        public string Password { get; set; }
+        public string Password { get; set; }= string.Empty;
         [Required(ErrorMessage = "تکرار رمز عبور الزامی است")]
         [DisplayName("تکرار رمز عبور ")]
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "رمز عبور و تکرار آن باید یکی باشد", MinimumLength = 6)]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }=string.Empty;
         [Required(ErrorMessage = "درج تاریخ تولد الزامی است")]
         [DisplayName("تاریخ تولد")]
         public DateTime DateOfBirth { get; set; }
         
-        public string Username { get; set; } = string.Empty;
+       // public string Username { get; set; } = string.Empty;
         public virtual ICollection<RoleDTO> Role { get; set; }
         public virtual ICollection<TicketDTO> Ticket { get; set; }
        // public bool Succeeded { get; set; }

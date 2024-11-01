@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Model.Entities;
 using Service.ServiceClasses;
 using Service.ServiceInterfaces;
+using Infrastructure.RepositoryPattern;
 
 internal class Program
 {
@@ -25,8 +26,11 @@ internal class Program
         });
 
         // Add services to the container.
+        builder.Services.AddScoped(typeof(IBaseRepository<,>), typeof(BaseRepository<,>));
         builder.Services.AddScoped<IRoleService, RoleService>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
+       // builder.Services.AddScoped<ITicketService, TicketService>();
        
 
         builder.Services.AddAuthentication();

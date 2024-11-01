@@ -33,11 +33,7 @@ namespace App.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
         private readonly IUserService _userService ;
-        public RegisterModel(
-            UserManager<User> userManager,
-            IUserStore<User> userStore,
-            SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger)
+        public RegisterModel(UserManager<User> userManager, IUserStore<User> userStore, SignInManager<User> signInManager,ILogger<RegisterModel> logger)
            // IEmailSender emailSender)
         {
             _userManager = userManager;

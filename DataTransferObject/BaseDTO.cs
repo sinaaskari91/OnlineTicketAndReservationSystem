@@ -13,14 +13,14 @@ namespace DataTransferObject
         /// <summary>
         /// The date time of data has created in system
         /// </summary>
-        //public DateTime CreatedDateTime { get; set; }
-        ///// <summary>
-        ///// The date time of data has updated in system
-        ///// </summary>
-        //public DateTime UpdatedDateTime { get; set; }
-        //public Guid? CreatedUserId { get; set; }
-        //public Guid? UpdatedUserId { get; set; }
-        //public UserDTO? CreatedUser { get; set; }
-        //public UserDTO? UpdatedUser { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        /// <summary>
+        /// The date time of data has updated in system
+        /// </summary>
+        public DateTime UpdatedDateTime { get; set; }
+        public Guid? CreatedUserId { get; set; }
+        public Guid? UpdatedUserId { get; set; }
+        public UserDTO? CreatedUser { get; set; }
+        public UserDTO? UpdatedUser { get; set; }
     }
 }
