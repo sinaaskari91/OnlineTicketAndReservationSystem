@@ -2,6 +2,7 @@ using DataTransferObject.DTOClasses;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Model.Entities;
 using Service.ServiceClasses;
@@ -73,56 +74,58 @@ namespace App.Web.Areas.Identity.Pages.Account
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
-        public async Task OnGetAsync(string returnUrl = null)
+        public  IActionResult OnGetAsync()
         {
-            if (!string.IsNullOrEmpty(ErrorMessage))
-            {
-                ModelState.AddModelError(string.Empty, ErrorMessage);
-            }
+          return  Page();
+            //if (!string.IsNullOrEmpty(ErrorMessage))
+            //{
+            //    ModelState.AddModelError(string.Empty, ErrorMessage);
+            //}
 
-            returnUrl ??= Url.Content("~/");
+            //returnUrl ??= Url.Content("~/");
 
-            // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            //// Clear the existing external cookie to ensure a clean login process
+            //await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            ReturnUrl = returnUrl;
+            //ReturnUrl = returnUrl;
         }
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
-            returnUrl ??= Url.Content("~/");
+              var result=  await _categoryservice.CreateCategory(Input);
+           // returnUrl ??= Url.Content("~/");
 
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (ModelState.IsValid)
-            {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _categoryservice.GetAllCategory();
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    // This doesn't count login failures towards account lockout
+            //    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            //    var result = await _categoryservice.GetAllCategory();
+            //    if (result.Succeeded)
+            //    {
+            //        _logger.LogInformation("User logged in.");
+            //        return LocalRedirect(returnUrl);
+            //    }
+            //    if (result.RequiresTwoFactor)
+            //    {
+            //        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl });
+            //    }
+            //    if (result.IsLockedOut)
+            //    {
+            //        _logger.LogWarning("User account locked out.");
+            //        return RedirectToPage("./Lockout");
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            //        return Page();
+            //    }
+            //}
 
             // If we got this far, something failed, redisplay form
-            return Page();
+            return RedirectToPage("categorylist");
         }
 
     }

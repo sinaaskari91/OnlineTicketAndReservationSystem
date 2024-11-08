@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model.Entities
 {
-    public class Province
+    public class Province:BaseEntity<Guid>
     {
+        public string ProvinceName { get; set; }
+        public List<City> Cities { get; set; }
     }
 }

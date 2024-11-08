@@ -35,8 +35,10 @@ namespace Service.ServiceClasses
 
         public async Task<List<UserDTO>> GetAllUsers()
         {
+         
             var datas = await _userManager.Users.ToListAsync();
             var users = datas.Any() ? datas.Select(TranslateToDTO).ToList() : new List<UserDTO>();
+           // var users = datas.Any() ? datas.Select(x=>x.Adapt<UserDTO>()).ToList() : new List<UserDTO>();
             return users;
         }
 

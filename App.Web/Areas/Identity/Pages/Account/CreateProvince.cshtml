@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model DataTransferObject.DTOClasses.ProvinceDTO
+<h3>استان </h3>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="View">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProvinceName" class="control-label"></label>
+                <input asp-for="ProvinceName" class="form-control" id="ProvinceName" />
+                <span asp-validation-for="ProvinceName" class="text-danger"></span>
+
+
+
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" onclick="createProvinceWithAjax(event)" onkeypress="createProvinceWithAjax(event)">درج استان</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back To List</a>
+</div>
+@section Scripts{
+    @{
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

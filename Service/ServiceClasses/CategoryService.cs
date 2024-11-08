@@ -2,6 +2,7 @@
 using DataTransferObject.DTOClasses;
 using Infrastructure.RepositoryPattern;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Service.ServiceInterfaces;
 using System;
@@ -30,9 +31,16 @@ namespace Service.ServiceClasses
 
     public async Task<List<CategoryDTO>> GetAllCategory()
         {
-           var categories=await _repository.GetAllAsync();
-            var categoriesdto=categories.ProjectToType<CategoryDTO>().ToList();
-            return categoriesdto;
+            var categories = await _repository.GetAllAsync();
+           var categoriesdto=categories.ProjectToType<CategoryDTO>().ToList();
+          // List<CategoryDTO> result = new List<CategoryDTO>();
+          //foreach (var category in categories)
+          //  {
+
+          //      result.Add(category.Adapt<CategoryDTO>());
+          //  }
+          // categories
+           return categoriesdto;
         }
 
         public CategoryDTO TranslateToDTO(Category entity)

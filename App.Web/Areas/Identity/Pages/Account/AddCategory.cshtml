@@ -35,16 +35,20 @@
                             <label asp-for="Input.CategoryDescription" class="form-label"> توضیحات دسته بندی </label>
                             <textarea asp-for="Input.CategoryDescription" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                         </div>
+                        @foreach (var item in Model.ExternalLogins!)
+                        {
+                            <button type="submit" class="btn btn-success"> </button>
+                        }
              
             </form>
       </div>
       </div>
     </div>
-    <div class="col-md-6 col-md-offset-2">
+   @*  <div class="col-md-6 col-md-offset-2">
         <section>
             <h3>Use another service to log in.</h3>
             <hr />
-            @{
+           @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
@@ -67,14 +71,15 @@
                         </div>
                     </form>
                 }
-            }
+            } 
         </section>
     </div>
-</div>
-</html>
+</div> *@
+
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 <script src="~/js/scripts.js"></script>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+</html>
 
