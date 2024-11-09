@@ -18,11 +18,12 @@ namespace App.Web.Areas.Identity.Pages.Account
             _logger = logger;
 
         }
-       
+        [BindProperty]
+        public List<CategoryListModel> categories { get; set; }
         public void OnGet()
         {
 
-            _categoryservice.GetAllCategory();
+           categories= _categoryservice.GetAllCategory();
 
         }
         public void OnPost() 

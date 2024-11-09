@@ -30,12 +30,16 @@
                                   
                                     </tr>
                                 </thead>
-                               
+                               <tbody>
+                             @*  @foreach(var Item in Model.categories)
+                                 {
                                     <tr>
-                                        <td>CategoryName</td>
-                                        <td>CategoryDescription</td>
-                                        <
+                                        <td>@Item.</td>
+                                        <td>@Model.CategoryDescription</td>
+                                        
                                     </tr>
+                                 } *@
+
                                 </tbody>
                             </table>
                         </div>

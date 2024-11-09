@@ -10,7 +10,7 @@ namespace Model.Entities
     {
         public string Title { get; set; }
         public int Number { get; set; }
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
     }
