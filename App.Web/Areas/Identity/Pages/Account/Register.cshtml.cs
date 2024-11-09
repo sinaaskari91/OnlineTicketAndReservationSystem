@@ -49,7 +49,7 @@ namespace App.Web.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public UserDTO Input { get; set; }
+        public RegisterViewModel Input { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -175,5 +175,10 @@ namespace App.Web.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<User>)_userStore;
         }
+    }
+    public class RegisterViewModel
+    {
+        public UserDTO User { get; set; }
+        public IFormFile File { get; set; }
     }
 }

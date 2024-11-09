@@ -36,8 +36,8 @@ namespace DataTransferObject.DTOClasses
         public DateTime DateOfBirth { get; set; }
         
        // public string Username { get; set; } = string.Empty;
-        public virtual ICollection<RoleDTO> Role { get; set; }
-        public virtual ICollection<TicketDTO> Ticket { get; set; }
+        public virtual ICollection<RoleDTO> Roles { get; set; }
+        public virtual ICollection<TicketDTO> Tickets { get; set; }
        // public bool Succeeded { get; set; }
        // public IEnumerable<object> Errors { get; set; }
     }

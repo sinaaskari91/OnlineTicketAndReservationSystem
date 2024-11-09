@@ -16,11 +16,11 @@ namespace Infrastructure.TableConfigs
            builder.ToTable(nameof(User));
            builder.HasKey(x => x.Id);
 
-           //builder.Property(x=>x.CreatedDateTime).IsRequired().HasDefaultValue(DateTime.Now);
-           //builder.Property(x=>x.UpdatedDateTime).IsRequired().HasDefaultValue(DateTime.Now);
+            //builder.Property(x => x.CreatedDateTime).IsRequired().HasDefaultValue(DateTime.Now);
+            //builder.Property(x => x.UpdatedDateTime).IsRequired().HasDefaultValue(DateTime.Now);
 
-           //builder.HasOne(x => x.CreatedUser).WithMany().HasForeignKey(x => x.CreatedUserId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
-           //builder.HasOne(x => x.UpdatedUser).WithMany().HasForeignKey(x => x.UpdatedUserId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
+            //builder.HasOne(x => x.CreatedUser).WithMany().HasForeignKey(x => x.CreatedUserId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
+            //builder.HasOne(x => x.UpdatedUser).WithMany().HasForeignKey(x => x.UpdatedUserId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
