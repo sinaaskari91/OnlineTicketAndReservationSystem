@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineTicketReservationDbContext))]
-    [Migration("20241018125357_init")]
+    [Migration("20241111173159_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -128,6 +128,81 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Model.Entities.Blob", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 403, DateTimeKind.Local).AddTicks(7060));
+
+                    b.Property<Guid?>("CreatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FileAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FileSize")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MimeType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDateTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 403, DateTimeKind.Local).AddTicks(7496));
+
+                    b.Property<Guid?>("UpdatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("UpdatedUserId");
+
+                    b.ToTable("Blob", (string)null);
+                });
+
+            modelBuilder.Entity("Model.Entities.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CategoryDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UpdatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("UpdatedUserId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Model.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -170,35 +245,41 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("BuyDate")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 18, 16, 23, 56, 973, DateTimeKind.Local).AddTicks(920));
+                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 404, DateTimeKind.Local).AddTicks(2638));
 
                     b.Property<Guid?>("CreatedUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SeatNumber")
+                    b.Property<int>("Number")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 10, 18, 16, 23, 56, 973, DateTimeKind.Local).AddTicks(1421));
+                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 404, DateTimeKind.Local).AddTicks(3036));
 
                     b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("CreatedUserId");
 
@@ -222,23 +303,29 @@ namespace Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VarChar");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("NVarChar");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("NVarChar");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -255,7 +342,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("NVarChar");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -269,11 +358,17 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("UpdatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("VarChar");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -282,6 +377,8 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("UpdatedUserId");
 
                     b.ToTable("User", (string)null);
                 });
@@ -337,7 +434,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Model.Entities.Ticket", b =>
+            modelBuilder.Entity("Model.Entities.Blob", b =>
                 {
                     b.HasOne("Model.Entities.User", "CreatedUser")
                         .WithMany()
@@ -349,22 +446,75 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UpdatedUserId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Model.Entities.User", "User")
-                        .WithMany("Ticket")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("UpdatedUser");
+                });
+
+            modelBuilder.Entity("Model.Entities.Category", b =>
+                {
+                    b.HasOne("Model.Entities.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("Model.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId");
 
                     b.Navigation("CreatedUser");
 
                     b.Navigation("UpdatedUser");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("Model.Entities.Ticket", b =>
+                {
+                    b.HasOne("Model.Entities.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Model.Entities.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Model.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Model.Entities.User", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("UpdatedUser");
                 });
 
             modelBuilder.Entity("Model.Entities.User", b =>
                 {
-                    b.Navigation("Ticket");
+                    b.HasOne("Model.Entities.User", "CreateUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Model.Entities.User", "UpdateUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("CreateUser");
+
+                    b.Navigation("UpdateUser");
+                });
+
+            modelBuilder.Entity("Model.Entities.User", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

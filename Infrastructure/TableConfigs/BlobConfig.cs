@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.TableConfigs
 {
-    internal class BlobConfig:BaseEntityTypeConfiguration<Blob,int>
+    public class BlobConfig:IEntityTypeConfiguration<Blob>
     {
        
-        
             public void Configure(EntityTypeBuilder<Blob> builder)
             {
                 builder.ToTable(nameof(Blob));

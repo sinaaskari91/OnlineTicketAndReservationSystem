@@ -8,7 +8,7 @@ namespace Model.Entities
 {
     public class Category:BaseEntity<Guid>
     {
-        public string CategoryName { get; set; }
-        public string CategoryDescription { get; set; }
+        public string? CategoryName { get; set; }
+        public string? CategoryDescription { get; set; }
     }
 }

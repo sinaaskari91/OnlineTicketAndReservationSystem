@@ -22,15 +22,16 @@ namespace Service.ServiceClasses
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public UserService(UserManager<User> userManager)
+        public UserService(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         public async Task<IdentityResult> CreateUser(UserDTO user)
         {
             User data = TranslateToEntity(user);
-            return await _userManager.CreateAsync(data);
-           
+            return await _userManager.CreateAsync(data,user.Password);
+                      
         }
 
         public async Task<List<UserDTO>> GetAllUsers()

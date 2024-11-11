@@ -14,8 +14,8 @@ namespace Model.Entities
         //[ForeignKey(nameof(User))]
         //public Guid UserId { get; set; }
         //          CreatedUserId
-        public string RoleName { get; set; }
-        public string RoleDescription { get; set; }
+        public string? RoleName { get; set; }
+        public string? RoleDescription { get; set; }
        // public User User { get; set; }
     }
 }

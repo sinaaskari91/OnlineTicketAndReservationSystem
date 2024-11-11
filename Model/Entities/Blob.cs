@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Model.Entities
 {
-    public class Blob:BaseEntity<int>
+    public class Blob:BaseEntity<Guid>
     {
-        public string FileAddress { get; set; }
-        public string MimeType { get; set; }
+        public string? FileAddress { get; set; }
+        public string? MimeType { get; set; }
         public int FileSize { get; set; }
 
     }

@@ -7,6 +7,7 @@ using Model.Entities;
 using Service.ServiceClasses;
 using Service.ServiceInterfaces;
 using Infrastructure.RepositoryPattern;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 internal class Program
 {
@@ -30,8 +31,10 @@ internal class Program
         builder.Services.AddScoped<IRoleService, RoleService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
-       // builder.Services.AddScoped<ITicketService, TicketService>();
-       
+        builder.Services.AddScoped<ITicketService, TicketService>();
+       // builder.Services.AddTransient<IEmailSender, EmailSender>();
+      // builder. Services.AddTransient<IEmailSender, SmsSender>();
+
 
         builder.Services.AddAuthentication();
 

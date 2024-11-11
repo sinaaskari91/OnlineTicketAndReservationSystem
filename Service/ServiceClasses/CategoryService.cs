@@ -16,22 +16,22 @@ namespace Service.ServiceClasses
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IBaseRepository<Category, Guid> _repository;
+        private readonly IBaseRepository<Category, Guid> _categoryrepository;
 
-        public CategoryService(IBaseRepository<Category,Guid> repository)
+        public CategoryService(IBaseRepository<Category,Guid> categoryrepository)
         {
-            _repository = repository;
+            _categoryrepository = categoryrepository;
         }
         public async Task<Category> CreateCategory(CategoryDTO categorydto)
         {
             var entity = TranslateToEntity(categorydto);
-            return await _repository.CreateDataAsync(entity); 
+            return await _categoryrepository.CreateDataAsync(entity); 
 
         }
 
     public async Task<List<CategoryDTO>> GetAllCategory()
         {
-            var categories = await _repository.GetAllAsync();
+           var categories = await _categoryrepository.GetAllAsync();
            var categoriesdto=categories.ProjectToType<CategoryDTO>().ToList();
           // List<CategoryDTO> result = new List<CategoryDTO>();
           //foreach (var category in categories)

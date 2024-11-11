@@ -34,11 +34,8 @@ namespace DataTransferObject.DTOClasses
         [Required(ErrorMessage = "درج تاریخ تولد الزامی است")]
         [DisplayName("تاریخ تولد")]
         public DateTime DateOfBirth { get; set; }
-        
-       // public string Username { get; set; } = string.Empty;
         public virtual ICollection<RoleDTO> Roles { get; set; }
         public virtual ICollection<TicketDTO> Tickets { get; set; }
-       // public bool Succeeded { get; set; }
-       // public IEnumerable<object> Errors { get; set; }
+     
     }
 }

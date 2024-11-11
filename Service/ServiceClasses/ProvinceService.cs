@@ -19,10 +19,6 @@ namespace Service.ServiceClasses
         {
             _provinceRepository = provinceRepository;
 ;       }
-      
-
-     
-
         public async Task<ProvinceDTO> CreateProvince(ProvinceDTO provinceDTO)
         {
            var province= await _provinceRepository.CreateDataAsync(TranslateToEntity(provinceDTO));

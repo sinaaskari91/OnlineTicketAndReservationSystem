@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace Service.ServiceInterfaces
 {
-    public interface ITicketService:IServiceBase<Ticket,TicketDTO,Guid>
+    public interface IBlobService:IServiceBase<Blob,BlobDTO,Guid>
     {
-        Task<TicketDTO> CreateTicket(TicketDTO ticketDTO);
     }
 }

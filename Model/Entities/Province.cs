@@ -8,7 +8,7 @@ namespace Model.Entities
 {
     public class Province:BaseEntity<Guid>
     {
-        public string ProvinceName { get; set; }
-        public List<City> Cities { get; set; }
+        public string? ProvinceName { get; set; }
+        public List<City> Cities { get; set; }=new List<City>();
     }
 }

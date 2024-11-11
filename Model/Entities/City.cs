@@ -10,7 +10,7 @@ namespace Model.Entities
     {
         public string Name { get; set; }
         public Guid ProvinceId { get; set; }
-        public Province Province { get; set; }
+        public Province? Province { get; set; }
         
     }
 }

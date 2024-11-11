@@ -11,6 +11,6 @@ namespace Model.Entities
         public City City { get; set; }
         public Guid CityId { get; set; }
         public string Description { get; set; }
-        public string PostalCode { get; set; }
+        public string? PostalCode { get; set; }
     }
 }

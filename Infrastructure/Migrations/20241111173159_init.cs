@@ -32,15 +32,17 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "NVarChar(200)", maxLength: 200, nullable: false),
+                    LastName = table.Column<string>(type: "NVarChar(200)", maxLength: 200, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    CreatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UserName = table.Column<string>(type: "VarChar(100)", maxLength: 100, nullable: false),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "VarChar(100)", maxLength: 100, nullable: false),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<string>(type: "NVarChar(200)", maxLength: 200, nullable: false),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -53,6 +55,16 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_User_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_User_User_UpdatedUserId",
+                        column: x => x.UpdatedUserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -162,22 +174,84 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Blob",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MimeType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileSize = table.Column<int>(type: "int", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 11, 21, 1, 58, 403, DateTimeKind.Local).AddTicks(7060)),
+                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 11, 21, 1, 58, 403, DateTimeKind.Local).AddTicks(7496)),
+                    CreatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Blob", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Blob_User_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Blob_User_UpdatedUserId",
+                        column: x => x.UpdatedUserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    UpdatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_User_CreatedUserId",
+                        column: x => x.CreatedUserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Categories_User_UpdatedUserId",
+                        column: x => x.UpdatedUserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ticket",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BuyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeatNumber = table.Column<int>(type: "int", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 10, 18, 16, 23, 56, 973, DateTimeKind.Local).AddTicks(920)),
-                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 10, 18, 16, 23, 56, 973, DateTimeKind.Local).AddTicks(1421)),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 11, 21, 1, 58, 404, DateTimeKind.Local).AddTicks(2638)),
+                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 11, 21, 1, 58, 404, DateTimeKind.Local).AddTicks(3036)),
                     CreatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UpdatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ticket_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ticket_User_CreatedUserId",
                         column: x => x.CreatedUserId,
@@ -192,8 +266,7 @@ namespace Infrastructure.Migrations
                         name: "FK_Ticket_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -217,11 +290,36 @@ namespace Infrastructure.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Blob_CreatedUserId",
+                table: "Blob",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Blob_UpdatedUserId",
+                table: "Blob",
+                column: "UpdatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CreatedUserId",
+                table: "Categories",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_UpdatedUserId",
+                table: "Categories",
+                column: "UpdatedUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "Role",
                 column: "NormalizedName",
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ticket_CategoryId",
+                table: "Ticket",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ticket_CreatedUserId",
@@ -242,6 +340,16 @@ namespace Infrastructure.Migrations
                 name: "EmailIndex",
                 table: "User",
                 column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_CreatedUserId",
+                table: "User",
+                column: "CreatedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_UpdatedUserId",
+                table: "User",
+                column: "UpdatedUserId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -270,10 +378,16 @@ namespace Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Blob");
+
+            migrationBuilder.DropTable(
                 name: "Ticket");
 
             migrationBuilder.DropTable(
                 name: "Role");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "User");

@@ -18,8 +18,8 @@ namespace Model
         /// The date time of data has updated in system
         /// </summary>
         public DateTime UpdatedDateTime { get; set; }
-        public Guid? CreatedUserId { get; set; }
-        public Guid? UpdatedUserId { get; set; }
+        public T? CreatedUserId { get; set; }
+        public T? UpdatedUserId { get; set; }
         public User? CreatedUser { get; set; }
         public User? UpdatedUser { get; set; }
         

@@ -23,7 +23,7 @@ namespace App.Web.Areas.Identity.Pages.Account
         public void OnGet()
         {
 
-           categories= _categoryservice.GetAllCategory();
+          var categories= _categoryservice.GetAllCategory();
 
         }
         public void OnPost() 

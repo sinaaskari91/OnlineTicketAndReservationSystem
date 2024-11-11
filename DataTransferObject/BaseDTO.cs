@@ -18,8 +18,8 @@ namespace DataTransferObject
         /// The date time of data has updated in system
         /// </summary>
         public DateTime UpdatedDateTime { get; set; }
-        public Guid? CreatedUserId { get; set; }
-        public Guid? UpdatedUserId { get; set; }
+        public KeyTypeId? CreatedUserId { get; set; }
+        public KeyTypeId? UpdatedUserId { get; set; }
         public UserDTO? CreatedUser { get; set; }
         public UserDTO? UpdatedUser { get; set; }
     }
