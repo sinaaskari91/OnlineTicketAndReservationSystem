@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.Entities
 {
-    public class Address
+    public class Address:BaseEntity<Guid>
     {
         public City City { get; set; }
         public Guid CityId { get; set; }

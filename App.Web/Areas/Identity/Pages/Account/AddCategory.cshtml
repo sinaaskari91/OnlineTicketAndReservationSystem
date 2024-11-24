@@ -2,7 +2,7 @@
 @model App.Web.Areas.Identity.Pages.Account.AddCategoryModel
 @{
 
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Add Category";
     Layout = null;
 }
 
@@ -23,9 +23,9 @@
 <div class="row">
     <div class="col-lg-7 mx-auto">
         <div class="card mt-2 mx-auto p-4 bg-light">
-             <div class="card-body  bg-light">
-                     <div class="container">
-            <form id="sendform" method="post">
+            <div class="card-body  bg-light">
+                <div class="container">
+                    <form id="sendform" method="post" asp-page="AddCategory">
 
                         <div class="mb-3">
                             <label asp-for="Input.CategoryName" class="form-label">نام دسته بندی </label>
@@ -35,51 +35,21 @@
                             <label asp-for="Input.CategoryDescription" class="form-label"> توضیحات دسته بندی </label>
                             <textarea asp-for="Input.CategoryDescription" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                         </div>
-                      
-                        
-                            <button type="submit" class="btn btn-success"> </button>
-                        
-             
-            </form>
-      </div>
-      </div>
-    </div>
-   @*  <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-           @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-success" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            } 
-        </section>
-    </div>
-</div> *@
 
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-<script src="~/js/scripts.js"></script>
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+
+                        <button type="submit" class="btn btn-success"> بفرست </button>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="~/js/scripts.js"></script>
+        @section Scripts {
+            <partial name="_ValidationScriptsPartial" />
+        }
 </html>
 

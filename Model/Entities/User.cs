@@ -31,7 +31,7 @@ namespace Model.Entities
 
         public  User? UpdateUser { get; set; }
 
-       // public Guid? AvatarId { get; set; }
+        public Guid? AvatarId { get; set; }
 
         public  Blob? Avatar { get; set; }
 

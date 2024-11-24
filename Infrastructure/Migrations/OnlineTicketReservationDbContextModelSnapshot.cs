@@ -125,6 +125,45 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Model.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UpdatedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("UpdatedUserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("Model.Entities.Blob", b =>
                 {
                     b.Property<Guid>("Id")
@@ -134,24 +173,28 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 403, DateTimeKind.Local).AddTicks(7060));
+                        .HasDefaultValue(new DateTime(2024, 11, 24, 20, 20, 38, 533, DateTimeKind.Local).AddTicks(3199));
 
                     b.Property<Guid?>("CreatedUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FileAddress")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("NVarChar");
 
                     b.Property<int>("FileSize")
                         .HasColumnType("int");
 
                     b.Property<string>("MimeType")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("NVarChar");
 
                     b.Property<DateTime>("UpdatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 403, DateTimeKind.Local).AddTicks(7496));
+                        .HasDefaultValue(new DateTime(2024, 11, 24, 20, 20, 38, 533, DateTimeKind.Local).AddTicks(3875));
 
                     b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -172,32 +215,97 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CategoryDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("CategoryName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category", (string)null);
+                });
+
+            modelBuilder.Entity("Model.Entities.City", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CityName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("CityStatusId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("CreatedUserId")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProvinceId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("UpdatedUserId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedUserId");
 
+                    b.HasIndex("ProvinceId");
+
                     b.HasIndex("UpdatedUserId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("Model.Entities.Province", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedUserId")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProvinceName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid?>("ProvincePictureId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UpdatedUserId")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedUserId");
+
+                    b.HasIndex("ProvincePictureId");
+
+                    b.HasIndex("UpdatedUserId");
+
+                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("Model.Entities.Role", b =>
@@ -219,11 +327,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("RoleDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -248,7 +354,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 404, DateTimeKind.Local).AddTicks(2638));
+                        .HasDefaultValue(new DateTime(2024, 11, 24, 20, 20, 38, 543, DateTimeKind.Local).AddTicks(2428));
 
                     b.Property<Guid?>("CreatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -266,12 +372,12 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 11, 21, 1, 58, 404, DateTimeKind.Local).AddTicks(3036));
+                        .HasDefaultValue(new DateTime(2024, 11, 24, 20, 20, 38, 543, DateTimeKind.Local).AddTicks(3024));
 
                     b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -295,6 +401,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("AvatarId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -365,6 +474,8 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AvatarId");
+
                     b.HasIndex("CreatedUserId");
 
                     b.HasIndex("NormalizedEmail")
@@ -431,6 +542,29 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Model.Entities.Address", b =>
+                {
+                    b.HasOne("Model.Entities.City", "City")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Model.Entities.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId");
+
+                    b.HasOne("Model.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId");
+
+                    b.Navigation("City");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("UpdatedUser");
+                });
+
             modelBuilder.Entity("Model.Entities.Blob", b =>
                 {
                     b.HasOne("Model.Entities.User", "CreatedUser")
@@ -448,17 +582,55 @@ namespace Infrastructure.Migrations
                     b.Navigation("UpdatedUser");
                 });
 
-            modelBuilder.Entity("Model.Entities.Category", b =>
+            modelBuilder.Entity("Model.Entities.City", b =>
                 {
                     b.HasOne("Model.Entities.User", "CreatedUser")
                         .WithMany()
-                        .HasForeignKey("CreatedUserId");
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Model.Entities.Province", "Province")
+                        .WithMany("Cities")
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Model.Entities.User", "UpdatedUser")
                         .WithMany()
-                        .HasForeignKey("UpdatedUserId");
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("CreatedUser");
+
+                    b.Navigation("Province");
+
+                    b.Navigation("UpdatedUser");
+                });
+
+            modelBuilder.Entity("Model.Entities.Province", b =>
+                {
+                    b.HasOne("Model.Entities.User", "CreatedUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Model.Entities.Blob", "ProvincePicture")
+                        .WithMany()
+                        .HasForeignKey("ProvincePictureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Model.Entities.User", "UpdatedUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("ProvincePicture");
 
                     b.Navigation("UpdatedUser");
                 });
@@ -481,19 +653,28 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UpdatedUserId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Model.Entities.User", null)
+                    b.HasOne("Model.Entities.User", "User")
                         .WithMany("Tickets")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
                     b.Navigation("CreatedUser");
 
                     b.Navigation("UpdatedUser");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Model.Entities.User", b =>
                 {
+                    b.HasOne("Model.Entities.Blob", "Avatar")
+                        .WithMany()
+                        .HasForeignKey("AvatarId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Model.Entities.User", "CreateUser")
                         .WithMany()
                         .HasForeignKey("CreatedUserId")
@@ -504,9 +685,21 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UpdatedUserId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.Navigation("Avatar");
+
                     b.Navigation("CreateUser");
 
                     b.Navigation("UpdateUser");
+                });
+
+            modelBuilder.Entity("Model.Entities.City", b =>
+                {
+                    b.Navigation("Addresses");
+                });
+
+            modelBuilder.Entity("Model.Entities.Province", b =>
+                {
+                    b.Navigation("Cities");
                 });
 
             modelBuilder.Entity("Model.Entities.User", b =>

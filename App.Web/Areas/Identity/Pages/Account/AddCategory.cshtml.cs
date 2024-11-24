@@ -26,109 +26,43 @@ namespace App.Web.Areas.Identity.Pages.Account
         [BindProperty]
         public CategoryDTO Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public string ReturnUrl { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        [TempData]
-        public string ErrorMessage { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public class InputModel
+        public IActionResult OnGetAsync()
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-       
-            public string CategoryName { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Required]
-            
-            public string CategoryDescription { get; set; }
-
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
-        }
-        public  IActionResult OnGetAsync()
-        {
-          return  Page();
-            //if (!string.IsNullOrEmpty(ErrorMessage))
-            //{
-            //    ModelState.AddModelError(string.Empty, ErrorMessage);
-            //}
-
-            //returnUrl ??= Url.Content("~/");
-
-            //// Clear the existing external cookie to ensure a clean login process
-            //await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
-            //ReturnUrl = returnUrl;
+            return Page();
         }
         public async Task<IActionResult> OnPostAsync()
         {
-              var result=  await _categoryservice.CreateCategory(Input);
-           // returnUrl ??= Url.Content("~/");
+            //var result=  await _categoryservice.CreateCategory(Input);
+            //return RedirectToPage("categorylist");
+            if (ModelState.IsValid)
+            {
 
-            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                Input.UpdatedDateTime = DateTime.UtcNow;
+                Input.CreatedDateTime = DateTime.UtcNow;
 
-            //if (ModelState.IsValid)
-            //{
-            //    // This doesn't count login failures towards account lockout
-            //    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            //    var result = await _categoryservice.GetAllCategory();
-            //    if (result.Succeeded)
-            //    {
-            //        _logger.LogInformation("User logged in.");
-            //        return LocalRedirect(returnUrl);
-            //    }
-            //    if (result.RequiresTwoFactor)
-            //    {
-            //        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl });
-            //    }
-            //    if (result.IsLockedOut)
-            //    {
-            //        _logger.LogWarning("User account locked out.");
-            //        return RedirectToPage("./Lockout");
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            //        return Page();
-            //    }
-            //}
+                var result = await _categoryservice.CreateCategory(Input);
 
-            // If we got this far, something failed, redisplay form
-            return RedirectToPage("categorylist");
+
+
+                if (result != null)
+                {
+                    _logger.LogInformation("Category Has been Created Successfully");
+
+                    // return RedirectToAction("CategoryList", "Home");
+                    // return RedirectToPage("~/Identity/Account/Category List");
+                    return RedirectToPage("CategoryList");
+                }
+
+
+            }
+
+
+            return Page();
         }
-
     }
+
 }
+
 
 

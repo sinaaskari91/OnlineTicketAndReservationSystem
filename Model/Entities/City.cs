@@ -8,9 +8,11 @@ namespace Model.Entities
 {
     public class City:BaseEntity<Guid>
     {
-        public string Name { get; set; }
+        public Guid CityStatusId { get; set; }
+        public string? CityName { get; set; }
         public Guid ProvinceId { get; set; }
         public Province? Province { get; set; }
-        
+        public ICollection<Address> Addresses { get; set; } = new List<Address>();
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +15,9 @@ namespace DataTransferObject.DTOClasses
         [Required (ErrorMessage ="نام استان خود را وارد کنید ")]
         [Display(Name ="نام استان")]
         public string ProvinceName { get; set; }
+        public BlobDTO Picture { get; set; }
+        public IFormFile ProvinceFile { get; set; }
+
         public List<CityDTO> Cities { get; set; }
     }
 }

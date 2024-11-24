@@ -2,6 +2,7 @@
 using DataTransferObject.DTOClasses;
 using Infrastructure.RepositoryPattern;
 using Mapster;
+using Microsoft.AspNetCore.Http;
 using Model.Entities;
 using Service.ServiceInterfaces;
 using System;
@@ -15,13 +16,24 @@ namespace Service.ServiceClasses
     public class ProvinceService : IProvinceService
     {
         private readonly IBaseRepository<Province,Guid> _provinceRepository;
-        public ProvinceService(IBaseRepository<Province,Guid> provinceRepository)
+        private readonly IUserService _userService;
+        private readonly IHttpContextAccessor _HttpContextAccessor;
+        public ProvinceService(IBaseRepository<Province,Guid> provinceRepository,IUserService userService,IHttpContextAccessor contextAccessor)
         {
             _provinceRepository = provinceRepository;
+            _userService = userService;
+            _HttpContextAccessor = contextAccessor;
 ;       }
         public async Task<ProvinceDTO> CreateProvince(ProvinceDTO provinceDTO)
         {
-           var province= await _provinceRepository.CreateDataAsync(TranslateToEntity(provinceDTO));
+            var rootfolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "uploads");
+            var address = Path.Combine(rootfolder, $"{provinceDTO.ProvinceName}-{provinceDTO.ProvinceFile.FileName}");
+            provinceDTO.Picture=new BlobDTO() { FileAddress = address,FileSize=(int)(provinceDTO.ProvinceFile.Length/1000) };
+            var province = await _provinceRepository.CreateDataAsync(TranslateToEntity(provinceDTO));
+          //  var province=TranslateToEntity(provinceDTO);    
+            province.CreatedDateTime = DateTime.Now;
+            province.UpdatedDateTime=DateTime.Now;
+           
             return provinceDTO;
         }
 

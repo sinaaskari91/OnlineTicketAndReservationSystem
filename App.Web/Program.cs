@@ -8,6 +8,7 @@ using Service.ServiceClasses;
 using Service.ServiceInterfaces;
 using Infrastructure.RepositoryPattern;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 internal class Program
 {
@@ -25,6 +26,13 @@ internal class Program
         {
             options.LoginPath="/Identity/Account/Login";
         });
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+         .AddCookie(options =>
+{
+    options.LoginPath = "/YourCustomLogin";
+    options.LogoutPath = "/YourCustomLogout";
+    options.AccessDeniedPath = "/YourCustomAccessDenied";
+});
 
         // Add services to the container.
         builder.Services.AddScoped(typeof(IBaseRepository<,>), typeof(BaseRepository<,>));

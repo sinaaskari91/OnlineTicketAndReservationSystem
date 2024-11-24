@@ -17,27 +17,40 @@ namespace Service
                 .Map(x => x.RoleName, y => y.RoleName)
                 .Map(x => x.RoleDescription, y => y.RoleDescription);
 
-            TypeAdapterConfig<RoleDTO, Role>.NewConfig()
-                .Map(x => x.RoleName, y => y.RoleName)
-                .Map(x => x.RoleDescription, y => y.RoleDescription);
-            TypeAdapterConfig<User, UserDTO>.NewConfig()
-              .Map(x => x.Email, y => y.UserName);
-
-            TypeAdapterConfig<UserDTO, User>.NewConfig()
-               .Map(x => x.UserName, y => y.Email)
-                 .Map(x => x.PasswordHash, x => x.Password)
-               .Map(x => x.PasswordHash, x => x.ConfirmPassword);
-
-            TypeAdapterConfig<BlobDTO, Blob>.NewConfig()
-              .Map(x => x.FileAddress, y => y.FileAddress)
-              .Map(x=>x.MimeType,y=>y.MimeType)
-              .Map(x=>x.FileSize,y=>y.FileSize);
 
             TypeAdapterConfig<Blob, BlobDTO>.NewConfig()
-              .Map(x => x.FileAddress, y => y.FileAddress)
-              .Map(x => x.MimeType, y => y.MimeType)
-              .Map(x => x.FileSize, y => y.FileSize);
+                .Map(x => x.FileAddress, y => y.FileAddress)
+                .Map(x => x.FileSize, y => y.FileSize)
+                .Map(x => x.MimeType, y => y.MimeType);
 
+            TypeAdapterConfig<User, UserDTO>.NewConfig()
+                .Map(x => x.Email, y => y.Email)
+                .Map(x => x.MobileNumber, y => y.PhoneNumber)
+                .Map(x => x.Email, y => y.UserName);
+
+            TypeAdapterConfig<UserDTO, User>.NewConfig()
+                .Map(x => x.Email, y => y.Email)
+                .Map(x => x.PhoneNumber, y => y.MobileNumber)
+                .Map(x => x.UserName, y => y.Email)
+                .Map(x => x.PasswordHash, y => y.Password);
+
+            TypeAdapterConfig<Blob, BlobDTO>.NewConfig()
+                .Map(x => x.FileAddress, y => y.FileAddress)
+                .Map(x => x.FileSize, y => y.FileSize)
+                .Map(x => x.MimeType, y => y.MimeType);
+
+            TypeAdapterConfig<BlobDTO, Blob>.NewConfig()
+                .Map(x => x.FileAddress, y => y.FileAddress)
+                .Map(x => x.FileSize, y => y.FileSize)
+                .Map(x => x.MimeType, y => y.MimeType);
+
+            TypeAdapterConfig<Province, ProvinceDTO>.NewConfig()
+                .Map(x => x.ProvinceName, y => y.ProvinceName)
+                .Map(x => x.Picture, y => y.ProvincePicture);
+
+            TypeAdapterConfig<ProvinceDTO, Province>.NewConfig()
+                .Map(x => x.ProvinceName, y => y.ProvinceName)
+                .Map(x => x.ProvincePicture, y => y.Picture);
         }
     }
 }

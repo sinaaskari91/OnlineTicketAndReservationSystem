@@ -8,8 +8,8 @@ namespace Model.Entities
 {
     public class Blob:BaseEntity<Guid>
     {
-        public string? FileAddress { get; set; }
-        public string? MimeType { get; set; }
+        public string FileAddress { get; set; }
+        public string MimeType { get; set; }
         public int FileSize { get; set; }
 
     }

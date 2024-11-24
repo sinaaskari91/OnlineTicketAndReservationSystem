@@ -25,7 +25,7 @@ namespace Infrastructure.TableConfigs
 
             builder.HasOne(x => x.CreateUser).WithMany().HasForeignKey(x => x.CreatedUserId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.UpdateUser).WithMany().HasForeignKey(x => x.UpdatedUserId).IsRequired(false).OnDelete(DeleteBehavior.NoAction);
-           builder.HasOne(x => x.Avatar).WithMany().HasForeignKey(x => x.CreatedUserId).OnDelete(DeleteBehavior.Cascade);
+           builder.HasOne(x => x.Avatar).WithMany().HasForeignKey(x => x.AvatarId).OnDelete(DeleteBehavior.Cascade);
         }
        
     }

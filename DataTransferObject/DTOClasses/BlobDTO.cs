@@ -11,5 +11,6 @@ namespace DataTransferObject.DTOClasses
         public string? FileAddress { get; set; }
         public string? MimeType { get; set; }
         public int FileSize { get; set; }
+        
     }
 }
