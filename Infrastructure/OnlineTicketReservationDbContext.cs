@@ -27,7 +27,7 @@ namespace Infrastructure
         {
            if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=OnlineTicket;TrustServerCertificate=True;Integrated Security=SSPI"); 
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=OnlineTicket;Integrated Security=True;Trust Server Certificate=True"); 
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

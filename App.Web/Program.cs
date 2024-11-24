@@ -29,9 +29,9 @@ internal class Program
         builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
          .AddCookie(options =>
 {
-    options.LoginPath = "/YourCustomLogin";
-    options.LogoutPath = "/YourCustomLogout";
-    options.AccessDeniedPath = "/YourCustomAccessDenied";
+                 options.LoginPath = "/YourCustomLogin";
+                 options.LogoutPath = "/YourCustomLogout";
+                 options.AccessDeniedPath = "/YourCustomAccessDenied";
 });
 
         // Add services to the container.
@@ -66,7 +66,7 @@ internal class Program
         app.UseAuthorization();
         app.UseEndpoints(endpoint =>
         {
-            endpoint.MapControllerRoute(
+           app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             endpoint.MapRazorPages();
