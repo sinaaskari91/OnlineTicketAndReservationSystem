@@ -29,15 +29,15 @@ namespace App.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IUserStore<User> _userStore;
-        private readonly IUserEmailStore<User> _emailStore;
+      //  private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-       // private readonly IEmailSender _emailSender;
+       //private readonly IEmailSender _emailSender;
         private readonly IUserService _userService ;
         public RegisterModel(UserManager<User> userManager, IUserStore<User> userStore, SignInManager<User> signInManager,ILogger<RegisterModel> logger)//IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
-            _emailStore = GetEmailStore();
+           // _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
             //_emailSender = emailSender;
@@ -113,7 +113,7 @@ namespace App.Web.Areas.Identity.Pages.Account
                 var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.User.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.User.Email, CancellationToken.None);
+              //  await _emailStore.SetEmailAsync(user, Input.User.Email, CancellationToken.None);
                 var result = await _userService.CreateUser(Input.User);
                 
                 if (result.Succeeded)
