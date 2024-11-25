@@ -15,6 +15,7 @@ internal class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddControllersWithViews();
         builder.Services.AddMvc();
         builder.Services.AddControllers();
         builder.Services.AddRazorPages();

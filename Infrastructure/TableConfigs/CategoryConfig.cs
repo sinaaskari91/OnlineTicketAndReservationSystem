@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,9 @@ namespace Infrastructure.TableConfigs
             GeneratedValueForKey = false;
             base.Configure(builder);
 
+            builder.Property(x => x.CategoryName).HasColumnType(SqlDbType.NVarChar.ToString()).HasMaxLength(50).IsRequired();
 
-
-            builder.Property(x => x.CategoryName).IsRequired(false).HasMaxLength(100);
+            
             builder.Property(x => x.CategoryDescription).IsRequired(false).HasMaxLength(500);
         }
     }

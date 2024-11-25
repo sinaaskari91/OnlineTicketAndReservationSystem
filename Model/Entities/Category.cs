@@ -10,5 +10,6 @@ namespace Model.Entities
     {
         public string CategoryName { get; set; }
         public string? CategoryDescription { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }
