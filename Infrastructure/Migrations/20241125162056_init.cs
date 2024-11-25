@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init2 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -148,8 +148,8 @@ namespace Infrastructure.Migrations
                     FileAddress = table.Column<string>(type: "NVarChar(1000)", maxLength: 1000, nullable: false),
                     MimeType = table.Column<string>(type: "NVarChar(300)", maxLength: 300, nullable: false),
                     FileSize = table.Column<int>(type: "int", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 24, 20, 20, 38, 533, DateTimeKind.Local).AddTicks(3199)),
-                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 24, 20, 20, 38, 533, DateTimeKind.Local).AddTicks(3875)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 25, 19, 50, 53, 921, DateTimeKind.Local).AddTicks(8021)),
+                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 25, 19, 50, 53, 921, DateTimeKind.Local).AddTicks(8746)),
                     CreatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UpdatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -248,8 +248,8 @@ namespace Infrastructure.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 24, 20, 20, 38, 543, DateTimeKind.Local).AddTicks(2428)),
-                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 24, 20, 20, 38, 543, DateTimeKind.Local).AddTicks(3024)),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 25, 19, 50, 53, 932, DateTimeKind.Local).AddTicks(1572)),
+                    UpdatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 11, 25, 19, 50, 53, 932, DateTimeKind.Local).AddTicks(2235)),
                     CreatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UpdatedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },

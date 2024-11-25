@@ -173,7 +173,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 22, 18, 19, 111, DateTimeKind.Local).AddTicks(4333));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 921, DateTimeKind.Local).AddTicks(8021));
 
                     b.Property<Guid?>("CreatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -194,7 +194,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 22, 18, 19, 111, DateTimeKind.Local).AddTicks(4779));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 921, DateTimeKind.Local).AddTicks(8746));
 
                     b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -354,7 +354,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 22, 18, 19, 119, DateTimeKind.Local).AddTicks(334));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 932, DateTimeKind.Local).AddTicks(1572));
 
                     b.Property<Guid?>("CreatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -372,7 +372,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 22, 18, 19, 119, DateTimeKind.Local).AddTicks(801));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 932, DateTimeKind.Local).AddTicks(2235));
 
                     b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uniqueidentifier");

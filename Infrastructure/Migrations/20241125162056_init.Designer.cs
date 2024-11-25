@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OnlineTicketReservationDbContext))]
-    [Migration("20241124180706_avalin")]
-    partial class avalin
+    [Migration("20241125162056_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -176,7 +176,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 21, 37, 4, 724, DateTimeKind.Local).AddTicks(1107));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 921, DateTimeKind.Local).AddTicks(8021));
 
                     b.Property<Guid?>("CreatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -197,7 +197,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 21, 37, 4, 724, DateTimeKind.Local).AddTicks(1537));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 921, DateTimeKind.Local).AddTicks(8746));
 
                     b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -357,7 +357,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 21, 37, 4, 730, DateTimeKind.Local).AddTicks(6607));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 932, DateTimeKind.Local).AddTicks(1572));
 
                     b.Property<Guid?>("CreatedUserId")
                         .HasColumnType("uniqueidentifier");
@@ -375,7 +375,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("UpdatedDateTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 24, 21, 37, 4, 730, DateTimeKind.Local).AddTicks(7002));
+                        .HasDefaultValue(new DateTime(2024, 11, 25, 19, 50, 53, 932, DateTimeKind.Local).AddTicks(2235));
 
                     b.Property<Guid?>("UpdatedUserId")
                         .HasColumnType("uniqueidentifier");

@@ -15,12 +15,13 @@ function createProvinceWithAjax(e) {
             success: function (response) {
                 if (response) {
                     if (responce.result) {
-                        showMessage('success', "Tank for ...", 'success');
+                        showMessage('success', "درج استان با موفقیت انجام شد", 'success');
                         setTimeout(() => {
                             reloadNewIndex();
                         }, 1500)
                     }
-                    else {
+                    else
+                    {
                         showMessage('Error', response.errorMessage[0], 'error');
                     }
                 }
