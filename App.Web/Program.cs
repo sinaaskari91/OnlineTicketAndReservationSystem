@@ -9,6 +9,7 @@ using Service.ServiceInterfaces;
 using Infrastructure.RepositoryPattern;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 internal class Program
 {
@@ -23,6 +24,7 @@ internal class Program
         
         builder.Services.AddIdentity<User,Role>().AddEntityFrameworkStores<OnlineTicketReservationDbContext>().AddDefaultTokenProviders();
         builder.Services.AddDbContext<DbContext, OnlineTicketReservationDbContext>();
+        builder.Services.AddScoped<ClaimsPrincipal>();
         builder.Services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath="/Identity/Account/Login";
@@ -41,6 +43,9 @@ internal class Program
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
         builder.Services.AddScoped<ITicketService, TicketService>();
+        builder.Services.AddScoped<IProvinceService, ProvinceService>();
+        builder.Services.AddScoped<IBlobService, BlobService>();
+
        // builder.Services.AddTransient<IEmailSender, EmailSender>();
       // builder. Services.AddTransient<IEmailSender, SmsSender>();
 
