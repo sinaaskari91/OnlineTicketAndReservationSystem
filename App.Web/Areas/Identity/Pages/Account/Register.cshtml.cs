@@ -29,18 +29,19 @@ namespace App.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IUserStore<User> _userStore;
-      //  private readonly IUserEmailStore<User> _emailStore;
+       private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
        //private readonly IEmailSender _emailSender;
         private readonly IUserService _userService ;
-        public RegisterModel(UserManager<User> userManager, IUserStore<User> userStore, SignInManager<User> signInManager,ILogger<RegisterModel> logger)//IEmailSender emailSender)
+        public RegisterModel(UserManager<User> userManager, IUserStore<User> userStore, SignInManager<User> signInManager,ILogger<RegisterModel> logger,IUserService userService)//IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
-           // _emailStore = GetEmailStore();
+            _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
             //_emailSender = emailSender;
+            _userService = userService;
         }
 
         /// <summary>
@@ -111,9 +112,18 @@ namespace App.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                               
+                user.Id = Guid.NewGuid();
+              // // CreatedUserId=user.Id;
+              // // UpdatedUserId=user.Id;
+              //// user.CreatedDateTime= DateTime.Now;
+              //  user.CreatedUserId = Guid.NewGuid();
+              //  user.UpdatedUserId = Guid.NewGuid();
+              //  user.CreatedUserId = null;
+              //  user.UpdatedUserId = null;
 
                 await _userStore.SetUserNameAsync(user, Input.User.Email, CancellationToken.None);
-              //  await _emailStore.SetEmailAsync(user, Input.User.Email, CancellationToken.None);
+               await _emailStore.SetEmailAsync(user, Input.User.Email, CancellationToken.None);
                 var result = await _userService.CreateUser(Input.User);
                 
                 if (result.Succeeded)
@@ -121,12 +131,12 @@ namespace App.Web.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userus= await _userManager.FindByEmailAsync(Input.User.Email);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                   // var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                   // code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                        values: new { area = "Identity", userId = user.Id, /*code = code,*/ returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
                     // await _emailSender.SendEmailAsync(Input.User.Email, "Confirm your email",$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
@@ -137,7 +147,7 @@ namespace App.Web.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                      //  await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }

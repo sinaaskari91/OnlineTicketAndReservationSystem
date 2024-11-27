@@ -13,11 +13,11 @@ namespace DataTransferObject
         /// <summary>
         /// The date time of data has created in system
         /// </summary>
-        public DateTime CreatedDateTime { get; set; }
+        public DateTime? CreatedDateTime { get; set; }
         /// <summary>
         /// The date time of data has updated in system
         /// </summary>
-        public DateTime UpdatedDateTime { get; set; }
+        public DateTime? UpdatedDateTime { get; set; }
         public KeyTypeId? CreatedUserId { get; set; }
         public KeyTypeId? UpdatedUserId { get; set; }
         public UserDTO? CreatedUser { get; set; }

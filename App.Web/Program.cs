@@ -25,6 +25,8 @@ internal class Program
         builder.Services.AddIdentity<User,Role>().AddEntityFrameworkStores<OnlineTicketReservationDbContext>().AddDefaultTokenProviders();
         builder.Services.AddDbContext<DbContext, OnlineTicketReservationDbContext>();
         builder.Services.AddScoped<ClaimsPrincipal>();
+       
+
         builder.Services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath="/Identity/Account/Login";
